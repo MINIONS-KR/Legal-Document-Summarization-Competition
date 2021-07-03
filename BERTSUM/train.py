@@ -27,9 +27,6 @@ class CFG:
     DATA_DIR = '/DATA/Final_DATA/task05_train'
     MODEL_DIR = './models'
 
-    # TRAIN SERIAL
-    RESULT_DIR = "BERTSUM_FINAL"
-
     # DEVICE
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 

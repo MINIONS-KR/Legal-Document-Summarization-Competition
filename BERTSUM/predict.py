@@ -80,7 +80,7 @@ if __name__ == '__main__':
                 sent_score = model(src, segs, clss, mask, mask_clss)
                 pred_lst.extend(torch.topk(sent_score, 3, axis=1).indices.tolist())
             
-        with open(os.path.join(CFG.DATA_DIR, "sample_submission.json"), "r", encoding="utf-8-sig") as f:
+        with open(os.path.join(CFG.SAVE_JSON_DIR, "sample_submission.json"), "r", encoding="utf-8-sig") as f:
             sample_submission = json.load(f)
         
         for row, pred in zip(sample_submission, pred_lst):

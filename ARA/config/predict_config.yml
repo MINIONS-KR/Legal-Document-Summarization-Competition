@@ -1,0 +1,17 @@
+DIRECTORY:
+  data:
+  result:
+
+DATALOADER:
+  num_workers:
+  shuffle: False
+  pin_memory:
+  drop_last: False
+
+SEED:
+  random_seed: 42
+
+PREDICT:
+  train_serial:
+  batch_size: 16
+
