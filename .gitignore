@@ -1,0 +1,9 @@
+submissions/
+models/
+.ipynb_checkpoints/
+*.pt
+*.pth
+*.log
+*.json
+*.pyc
+Ik_fold0.pt

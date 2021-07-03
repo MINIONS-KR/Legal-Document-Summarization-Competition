@@ -1,0 +1,10 @@
+train_serial,train_timestamp,model_str,optimizer_str,loss_function_str,metric_function_str,early_stopping_patience,batch_size,epoch,learning_rate,momentum,random_seed,epoch_index,train_loss,validation_loss,train_score,validation_score,elapsed_time
+5,8,10,0.0002,42,0,14.019731640815735,10.910937433036512,0.39166666666666666,4.16146483562214e-08
+train_serial,train_timestamp,model_str,optimizer_str,loss_function_str,metric_function_str,early_stopping_patience,batch_size,epoch,learning_rate,momentum,random_seed,epoch_index,train_loss,validation_loss,train_score,validation_score,elapsed_time
+5,8,10,0.0002,42,0,10.958405876159668,9.845335785442105,0.4041666666666666,4.16146483562214e-08
+train_serial,train_timestamp,model_str,optimizer_str,loss_function_str,metric_function_str,early_stopping_patience,batch_size,epoch,learning_rate,momentum,random_seed,epoch_index,train_loss,validation_loss,train_score,validation_score,elapsed_time
+5,8,10,0.0002,42,0,10.662573719024659,9.431641615567708,0.3791666666666667,4.16146483562214e-08
+train_serial,train_timestamp,model_str,optimizer_str,loss_function_str,metric_function_str,early_stopping_patience,batch_size,epoch,learning_rate,momentum,random_seed,epoch_index,train_loss,validation_loss,train_score,validation_score,elapsed_time
+5,8,10,0.0002,42,0,15.407605743408203,12.220681588780662,0.3916666666666666,4.16146483562214e-08
+train_serial,train_timestamp,model_str,optimizer_str,loss_function_str,metric_function_str,early_stopping_patience,batch_size,epoch,learning_rate,momentum,random_seed,epoch_index,train_loss,validation_loss,train_score,validation_score,elapsed_time
+5,8,10,0.0002,42,0,10.419558334350587,11.882753506674742,0.4541666666666666,4.16146483562214e-08
