@@ -11,15 +11,14 @@ from itertools import chain
 
 
 
-
 class CustomDataset(Dataset):
     def __init__(self, data, mode, model_name):
         self.data = data
         self.mode = mode
         
-        if model_name == "koelectra":
+        if "koelectra" in model_name:
             self.pretrained_model_path = "monologg/koelectra-base-v3-discriminator"
-        elif model_name == "kobert" or model_name == "sentavg":
+        elif "kobert" in model_name or "sentavg" in model_name:
             self.pretrained_model_path = "kykim/bert-kor-base"
         self.tokenizer = AutoTokenizer.from_pretrained(self.pretrained_model_path)
         
@@ -82,9 +81,9 @@ class TestCustomDataset(Dataset):
         self.data = data
         self.mode = mode
         
-        if model_name == "koelectra":
+        if "koelectra" in model_name:
             self.pretrained_model_path = "monologg/koelectra-base-v3-discriminator"
-        elif model_name == "kobert" or model_name == "sentavg":
+        elif "kobert" in model_name or "sentavg" in model_name:
             self.pretrained_model_path = "kykim/bert-kor-base"
         self.tokenizer = AutoTokenizer.from_pretrained(self.pretrained_model_path)
         

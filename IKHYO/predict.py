@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
     # Load Model
         
-    models = [torch.load(f"models/test_Ik_fold{fold}.pt") for fold in range(5)]
+    models = [torch.load(f"models/Ik_fold{fold}.pt") for fold in range(5)]
 
     # make predictions
     for i in range(len(models)):
@@ -92,6 +92,6 @@ if __name__ == '__main__':
             row['summary_index2'] = pred[1]
             row['summary_index3'] = pred[2]
         
-        with open(f"submissions/test_ikhyo{i}.json", "w") as f:
+        with open(f"submissions/ikhyo{i}.json", "w") as f:
             json.dump(sample_submission, f, separators=(',', ':'))
         

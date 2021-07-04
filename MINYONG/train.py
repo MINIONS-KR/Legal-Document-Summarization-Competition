@@ -258,6 +258,7 @@ def train(model, optimizer, scheduler, criterion, train_dataloader, validation_d
                     best_score = validation_score
                     performance_recorder.weight_path = os.path.join(CFG.MODEL_DIR, f'bertsum{fold}.pt')
                     performance_recorder.save_weight()
+
             
                 train_mean_loss = train_total_loss / CFG.valid_step
                 train_score = metric_fn(y_true=target_lst, y_pred=pred_lst)

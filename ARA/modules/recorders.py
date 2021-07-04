@@ -159,8 +159,10 @@ class PerformanceRecorder():
             model (`model`): model
         
         """
-        torch.save(self.model, self.weight_path)
-        #torch.save(self.model.state_dict(), self.weight_path)
+        check_point = {
+            'model': self.model.state_dict()
+        }
+        torch.save(check_point, self.weight_path)
         msg = f"Model saved: {self.weight_path}"
         self.logger.info(msg) if self.logger else None
 

@@ -90,3 +90,5 @@ if __name__ == '__main__':
         
         with open(os.path.join(CFG.SAVE_JSON_DIR, f"bertsum{fold}.json"), "w") as f:
             json.dump(sample_submission, f, separators=(',', ':'))
+        
+        break

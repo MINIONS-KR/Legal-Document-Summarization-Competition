@@ -130,6 +130,7 @@
     - `optimizer.py`: optimizer를 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
     - `recorders.py`: 모델 저장 작업 및 logging 작업을 하는 PerformanceRecorder 객체 정의
     - `scheduler.py`: scheduler를 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
+    - `trainer.py`: 모델 training, validation, test 작업을 하는 Trainer 객체 정의
     - `utils.py`: Config File Parsing, Seed 통일 등 학습과 추론에 필요한 다양한 util 함수 정의
 - `results`: train시에 logging 기록들을 저장하는 공간
 - `predict.py`: 5 Fold로 학습된 각각의 모델에 대해서 prediction을 하는 파일
@@ -181,7 +182,6 @@
 │   ├── ikhyo1.json
 │   ├── ikhyo2.json
 │   ├── ikhyo3.json
-│   ├── ikhyo4.json
 │   ├── ikhyo4.json
 │   ├── bertsum0.json
 │   ├── bertsum1.json

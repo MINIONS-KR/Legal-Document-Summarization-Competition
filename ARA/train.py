@@ -83,9 +83,9 @@ train_dataloader = DataLoader(dataset=train_dataset, batch_size=BATCH_SIZE, shuf
 validation_dataloader = DataLoader(dataset=validation_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
 # Load Model
-if args.model_name == "koelectra":
+if "koelectra" in args.model_name:
     model = Electra_Summarizer().to(device)
-elif args.model_name == "sentavg":
+elif "sentavg" in args.model_name:
     model = CLSSentsAvg_Summarizer().to(device)
 
 # Set optimizer, scheduler, loss function, metric function

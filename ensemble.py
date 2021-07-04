@@ -7,12 +7,18 @@ submission_dir = './submissions'
 
 
 if __name__ == '__main__':
-    submission_list = os.listdir(submission_dir)
+    submission_list = ['bertsum0.json', 'bertsum1.json', 'bertsum2.json', 'bertsum3.json', 'bertsum4.json',
+                'ikhyo0.json', 'ikhyo1.json', 'ikhyo2.json', 'ikhyo3.json', 'ikhyo4.json', 
+                'kobert0.json', 'kobert1.json', 'kobert2.json', 'kobert3.json', 'kobert4.json',
+                'koelectra.json', 'sentavg.json']
+
     submissions = []
     for submission_name in submission_list:
-        if submission_name == "sample_submission.json":
+        if submission_name in ["sample_submission.json", "final_submission.json"]:
             continue
-        submissions.append(pd.read_json(os.path.join(submission_dir, submission_name)))
+        if submission_name.endswith('json'):
+            print(submission_name)
+            submissions.append(pd.read_json(os.path.join(submission_dir, submission_name)))
 
     ID = list(submissions[0]['ID'])
     indices = []

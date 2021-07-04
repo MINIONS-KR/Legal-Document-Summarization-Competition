@@ -139,7 +139,7 @@ def train(model, optimizer, criterion, train_dataloader, validation_dataloader, 
             print('Early stopped')
             break
 
-        if trainer.validation_score > best_score:
+        if trainer.validation_score >= best_score:
             best_score = trainer.validation_score
             torch.save(model, f"models/Ik_fold{fold}.pt")
 
