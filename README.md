@@ -95,7 +95,6 @@
 └── train.sh
 ```
 
-<<<<<<< HEAD
 **`ARA` 폴더** : KoBert, KoElectra, SentAvg(custom) 모델 학습 및 추론
 - `config`: 학습과 추론시에 설정할 환경들을 저장하는 yml config file이 존재하는 폴더
   - `predict_config.yml`: 추론시에 사용할 필요한 환경 전달
@@ -166,48 +165,29 @@
 - `koelectra.pt` : 학습된 KoElectra Base 모델
 
 <br>
-=======
-**`ARA` 폴더**
-- 각 폴더에 대한 설명 작성하기
-
-**`IKHYO` 폴더**
-- 각 폴더에 대한 설명 작성하기
-
-**`MINYONG`폴더**
-- 각 폴더에 대한 설명 작성하기
-
-**`models`폴더**
-- 각 폴더에 대한 설명 작성하기
->>>>>>> 0277b2d4cdcea42c9bbc93151bf48a304c4a2e76
 
 ### output에 대한 description
 
 ```bash
 .
 ├── submissions
-<<<<<<< HEAD
 │   ├── bertsum0.json
 │   ├── bertsum1.json
 │   ├── bertsum2.json
 │   ├── bertsum3.json
 │   ├── bertsum4.json
 │   ├── final_submission.json
-=======
->>>>>>> 0277b2d4cdcea42c9bbc93151bf48a304c4a2e76
 │   ├── ikhyo0.json
 │   ├── ikhyo1.json
 │   ├── ikhyo2.json
 │   ├── ikhyo3.json
 │   ├── ikhyo4.json
-<<<<<<< HEAD
-=======
 │   ├── ikhyo4.json
 │   ├── bertsum0.json
 │   ├── bertsum1.json
 │   ├── bertsum2.json
 │   ├── bertsum3.json
 │   ├── bertsum4.json
->>>>>>> 0277b2d4cdcea42c9bbc93151bf48a304c4a2e76
 │   ├── kobert0.json
 │   ├── kobert1.json
 │   ├── kobert2.json
@@ -220,7 +200,6 @@
 └── inference.sh
 ```
 
-<<<<<<< HEAD
 **`submissions` 폴더**: 제출에 필요한 모든 prediction json file을 저장하는 공간
 - `final_submission.json`: 앙상블을 통한 최종 prediction file
 - `bertsum0 ~ bertsum4.json` : BertSumExt 모델의 5-Fold Result
@@ -244,16 +223,3 @@
 ### 추론에 필요한 명령어
 
 (Minions Folder 내부에서) `bash inference.sh`
-=======
-**`submissions`폴더**
-- 각 폴더에 대한 설명 작성하기
-
-**`ensemble.py`**
-- ensemble.py에 대한 설명 작성하기
-
-
-### 학습에 필요한 명령어
-
-
-### 추론에 필요한 명령어
->>>>>>> 0277b2d4cdcea42c9bbc93151bf48a304c4a2e76
