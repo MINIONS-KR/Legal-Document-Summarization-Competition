@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     # make predictions
     for i in range(len(models)):
-        print("ikhyo model inference fold : {i} ....")
+        print(f"ikhyo model inference fold : {i} ....")
         models[i].to("cuda:0")
         models[i].eval()
         pred_lst = []
