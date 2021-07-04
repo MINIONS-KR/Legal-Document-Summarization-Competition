@@ -73,6 +73,7 @@ test_dataset = TestCustomDataset(df, mode='test', model_name=MODEL_NAME)
 test_dataloader = DataLoader(dataset=test_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
 # Load Model
+<<<<<<< HEAD
 if "kobert" in MODEL_NAME:
     model = BERT_Summarizer().to(device)
 elif "koelectra" == MODEL_NAME:
@@ -82,6 +83,9 @@ elif "sentavg" == MODEL_NAME:
 model.load_state_dict(torch.load(os.path.join("./models", f"{MODEL_NAME}.pt"))['model'])
 
 # model = torch.load(os.path.join("./models", f"{MODEL_NAME}.pt"))
+=======
+model = torch.load(os.path.join("./models", f"{MODEL_NAME}.pt"))
+>>>>>>> 0277b2d4cdcea42c9bbc93151bf48a304c4a2e76
 model.to(device)
 model.eval()
 
