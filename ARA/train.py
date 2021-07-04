@@ -29,7 +29,7 @@ DEBUG = False
 # CONFIG
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_PROJECT_DIR = os.path.dirname(PROJECT_DIR)
-DATA_DIR = '../DATA/Final_DATA/task05_train'
+DATA_DIR = '/DATA/Final_DATA/task05_train'
 TRAIN_CONFIG_PATH = os.path.join(PROJECT_DIR, 'config/train_config.yml')
 config = load_yaml(TRAIN_CONFIG_PATH)
 
@@ -87,7 +87,6 @@ if args.model_name == "koelectra":
     model = Electra_Summarizer().to(device)
 elif args.model_name == "sentavg":
     model = CLSSentsAvg_Summarizer().to(device)
-    
 
 # Set optimizer, scheduler, loss function, metric function
 optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
@@ -122,5 +121,6 @@ for epoch_index in range(EPOCHS):
     
     if trainer.validation_score > criterion:
         criterion = trainer.validation_score
-        performance_recorder.weight_path = os.path.join("/Minions/models", f"{MODEL_NAME}.pt")
+        performance_recorder.model = model
+        performance_recorder.weight_path = os.path.join("./models", f"{MODEL_NAME}.pt")
         performance_recorder.save_weight()

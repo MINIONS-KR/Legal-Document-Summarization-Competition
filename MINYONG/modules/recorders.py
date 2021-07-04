@@ -160,9 +160,7 @@ class PerformanceRecorder():
         
         """
         check_point = {
-            'model': self.model.state_dict(),
-            'optimizer': self.optimizer.state_dict(),
-            'scheduler': self.scheduler.state_dict()
+            'model': self.model.state_dict()
         }
         torch.save(check_point, self.weight_path)
         msg = f"Model saved: {self.weight_path}"

@@ -70,6 +70,8 @@ if __name__ == '__main__':
 
     # make predictions
     for i in range(len(models)):
+        print(f"ikhyo model inference fold : {i} ...")
+        models[i].to("cuda:0")
         models[i].eval()
         pred_lst = []
         with torch.no_grad():
@@ -82,7 +84,7 @@ if __name__ == '__main__':
 
                 pred_lst.extend(torch.topk(sent_score, 3, axis=1).indices.tolist())
             
-        with open(os.path.join(CFG.DATA_DIR, "sample_submission.json"), "r", encoding="utf-8-sig") as f:
+        with open("./submissions/sample_submission.json", "r", encoding="utf-8-sig") as f:
             sample_submission = json.load(f)
         
         for row, pred in zip(sample_submission, pred_lst):

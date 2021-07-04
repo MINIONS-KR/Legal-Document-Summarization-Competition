@@ -89,9 +89,6 @@ def get_test_config(CFG, config):
     CFG.dataset = config['PREDICT']['dataset']
     CFG.batch_size = config['PREDICT']['batch_size']
 
-    # set trained model path
-    CFG.TRAINED_MODEL_PATH = os.path.join(CFG.PROJECT_DIR, 'results', 'train', CFG.train_serial, 'best.pt')
-
 
 def seed_everything(seed):
     np.random.seed(seed)

@@ -8,7 +8,7 @@ DATALOADER:
   drop_last:
 
 TRAIN:
-  num_epochs: 4
+  num_epochs: 5
   batch_size: 16
   learning_rate: 0.0005
   early_stopping_patience: 5

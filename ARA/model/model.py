@@ -80,21 +80,12 @@ class CLSSentsAvg_Summarizer(nn.Module):
         
         self.cls_layer = nn.Linear(768, 768//2)
         self.sents_layer = nn.Linear(768, 768//2)
-        # self.concat_layer = nn.Linear(768*2, 768)
         self.fc = nn.Linear(768, 1)
-        
-        '''
-        self.cls_layer = FCLayer(768, 768//2, 0.0)
-        self.sents_layer = FCLayer(768, 768//2, 0.0)
-        # self.concat_layer = FCLayer(768*2, 768, 0.0)
-        self.fc = FCLayer(768, 1, 0.0, False)
-        '''
         
         self.sigmoid = nn.Sigmoid()
         
         torch.nn.init.xavier_uniform_(self.cls_layer.weight)
         torch.nn.init.xavier_uniform_(self.sents_layer.weight)
-        # torch.nn.init.xavier_uniform_(self.concat_layer.weight)
         torch.nn.init.xavier_uniform_(self.fc.weight)
         
     
@@ -111,7 +102,6 @@ class CLSSentsAvg_Summarizer(nn.Module):
                 sents_embedding = self.sents_layer(torch.mean(top_vec[b, clss[b][i].long()+1:sents_end[i]], dim=0))
                 cls_embedding = self.cls_layer(top_vec[b, clss[b][i].long()])
                 
-                # batch_sents_vec.append(self.concat_layer(torch.cat([cls_embedding, sents_embedding])))
                 batch_sents_vec.append(torch.cat([cls_embedding, sents_embedding]))
             
             for i in range(len(clss[b])-len(sents_end)):

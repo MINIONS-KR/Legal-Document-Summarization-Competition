@@ -15,7 +15,7 @@ DEBUG = False
 # CONFIG
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_PROJECT_DIR = os.path.dirname(PROJECT_DIR)
-DATA_DIR = '../DATA/Final_DATA/task05_train'
+DATA_DIR = '/DATA/Final_DATA/task05_train'
 TRAIN_CONFIG_PATH = os.path.join(PROJECT_DIR, 'config/train_config.yml')
 config = load_yaml(TRAIN_CONFIG_PATH)
 
@@ -35,7 +35,7 @@ LOSS_FN = config['TRAIN']['loss_function']
 
 # PERFORMANCE RECORD
 MODEL_NAME = "kobert"
-PERFORMANCE_RECORD_DIR = os.path.join(PROJECT_DIR, 'results', MODEL_NAME)
+PERFORMANCE_RECORD_DIR = os.path.join(PROJECT_DIR, 'model', MODEL_NAME)
 PERFORMANCE_RECORD_COLUMN_NAME_LIST = config['PERFORMANCE_RECORD']['column_list']
 
 
@@ -60,10 +60,10 @@ for train_idx, test_idx in kf.split(df):
 
     print(f"Fold {fold_idx} -- Train Set: {len(train_data)}, Valid Set: {len(valid_data)}")
 
-    with open(f"{DATA_DIR}/{MODEL_NAME}-{fold_idx}-train.pkl", 'wb') as f:
+    with open(f"./ARA/data/{MODEL_NAME}-{fold_idx}-train.pkl", 'wb') as f:
         pickle.dump(train_idx, f)
         
-    with open(f"{DATA_DIR}/{MODEL_NAME}-{fold_idx}-valid.pkl", 'wb') as f:
+    with open(f"./ARA/data/{MODEL_NAME}-{fold_idx}-valid.pkl", 'wb') as f:
         pickle.dump(test_idx, f)
 
     fold_idx += 1
