@@ -78,7 +78,8 @@ class Trainer():
     
                 if self.validation_score > self.criterion:
                     self.criterion = self.validation_score
-                    performance_recorder.weight_path = os.path.join("/Minions/models", f"{model_name}.pt")
+                    performance_recorder.model = self.model
+                    performance_recorder.weight_path = os.path.join("./models", f"{model_name}.pt")
                     performance_recorder.save_weight()
         
         self.train_mean_loss = self.train_total_loss / (len(dataloader) * 16)

@@ -23,7 +23,7 @@ from sklearn.model_selection import train_test_split
 # CONFIG
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_PROJECT_DIR = os.path.dirname(PROJECT_DIR)
-DATA_DIR = '../DATA/Final_DATA/task05_test'
+DATA_DIR = '/DATA/Final_DATA/task05_test'
 SAVE_DATA_DIR = os.path.join(PROJECT_DIR, 'data')
 TRAIN_CONFIG_PATH = os.path.join(PROJECT_DIR, 'config/train_config.yml')
 config = load_yaml(TRAIN_CONFIG_PATH)
@@ -49,7 +49,7 @@ args = parser.parse_args()
 
 # PERFORMANCE RECORD
 MODEL_NAME = args.model_name
-PERFORMANCE_RECORD_DIR = os.path.join(PROJECT_DIR, 'models', MODEL_NAME)
+PERFORMANCE_RECORD_DIR = os.path.join(PROJECT_DIR, 'model', MODEL_NAME)
 PERFORMANCE_RECORD_COLUMN_NAME_LIST = config['PERFORMANCE_RECORD']['column_list']
 
 # Set random seed
@@ -73,14 +73,8 @@ test_dataset = TestCustomDataset(df, mode='test', model_name=MODEL_NAME)
 test_dataloader = DataLoader(dataset=test_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
 # Load Model
-# Load Model
-if args.model_name == "koelectra":
-    model = Electra_Summarizer().to(device)
-elif args.model_name == "sentavg":
-    model = CLSSentsAvg_Summarizer().to(device)
-elif "kobert" in args.model_name:
-    model = Summarizer().to(device)
-model = torch.load(torch.load(os.path.join("/Minions/models", f"{MODEL_NAME}.pt"))
+model = torch.load(os.path.join("./models", f"{MODEL_NAME}.pt"))
+model.to(device)
 model.eval()
 
 # Set optimizer, scheduler, loss function, metric function
@@ -96,7 +90,7 @@ trainer = Trainer(model, device, loss_fn, metric_fn, optimizer, scheduler)
 
 predict = trainer.test_epoch(test_dataloader)
 
-with open("/Minions/submissions/sample_submission.json", "r", encoding="utf-8-sig") as f:
+with open("./submissions/sample_submission.json", "r", encoding="utf-8-sig") as f:
     sample_submission = json.load(f)
     
 for row, pred in zip(sample_submission, predict):
@@ -104,5 +98,5 @@ for row, pred in zip(sample_submission, predict):
     row['summary_index2'] = pred[1]
     row['summary_index3'] = pred[2]
     
-with open(os.path.join(f"/Minions/submissions/{MODEL_NAME}.json"), "w") as f:
+with open(os.path.join(f"./submissions/{MODEL_NAME}.json"), "w") as f:
     json.dump(sample_submission, f, separators=(',', ':'))

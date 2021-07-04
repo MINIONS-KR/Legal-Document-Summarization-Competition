@@ -28,7 +28,7 @@ DEBUG = False
 # CONFIG
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_PROJECT_DIR = os.path.dirname(PROJECT_DIR)
-DATA_DIR = '../DATA/Final_DATA/task05_train'
+DATA_DIR = '/DATA/Final_DATA/task05_train'
 TRAIN_CONFIG_PATH = os.path.join(PROJECT_DIR, 'config/train_config.yml')
 config = load_yaml(TRAIN_CONFIG_PATH)
 
@@ -69,11 +69,11 @@ with open(f"{DATA_DIR}/train.json", "r", encoding="utf-8-sig") as f:
 df = pd.DataFrame(data)
 
 for fold_idx in range(5):
-    with open(f"{DATA_DIR}/{MODEL_NAME}-{fold_idx}-train.pkl", 'rb') as f:
-    train_index = pickle.load(f)
+    with open(f"./ARA/data/{MODEL_NAME}-{fold_idx}-train.pkl", 'rb') as f:
+        train_index = pickle.load(f)
     train_data = df.iloc[train_index]
 
-    with open(f"{DATA_DIR}/{MODEL_NAME}-{fold_idx}-valid.pkl", 'rb') as f:
+    with open(f"./ARA/data/{MODEL_NAME}-{fold_idx}-valid.pkl", 'rb') as f:
         valid_index = pickle.load(f)
     valid_data = df.iloc[valid_index]
     
@@ -83,7 +83,7 @@ for fold_idx in range(5):
     validation_dataloader = DataLoader(dataset=validation_dataset, batch_size=BATCH_SIZE, shuffle=False)
     
     # Load Model
-    model = Summarizer().to(device)
+    model = BERT_Summarizer().to(device)
     
     # Set optimizer, scheduler, loss function, metric function
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
@@ -106,7 +106,7 @@ for fold_idx in range(5):
 
     performance_recorder = PerformanceRecorder(column_name_list=PERFORMANCE_RECORD_COLUMN_NAME_LIST,
                                                record_dir=PERFORMANCE_RECORD_DIR,
-                                               key_column_value_list=key_column_value_list
+                                               key_column_value_list=key_column_value_list,
                                                model=model,
                                                optimizer=optimizer,
                                                scheduler=scheduler)
@@ -119,7 +119,8 @@ for fold_idx in range(5):
 
         if trainer.validation_score > criterion:
             criterion = trainer.validation_score
-            performance_recorder.weight_path = os.path.join("/Minions/models", f"{MODEL_NAME}{fold_idx}.pt')
+            performance_recorder.model = model
+            performance_recorder.weight_path = os.path.join("./models", f"{MODEL_NAME}{fold_idx}.pt")
             performance_recorder.save_weight()
     
     torch.cuda.empty_cache()
