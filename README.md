@@ -95,66 +95,24 @@
 └── train.sh
 ```
 
-**`ARA` 폴더** : KoBert, KoElectra, SentAvg(custom) 모델 학습 및 추론
-- `config`: 학습과 추론시에 설정할 환경들을 저장하는 yml config file이 존재하는 폴더
-  - `predict_config.yml`: 추론시에 사용할 필요한 환경 전달
-  - `train_config.yml`: 학습시에 사용할 하이퍼 파라미터 및 필요한 환경 전달
-- `data`: 5 Fold에 사용되는 데이터를 저장하는 폴더
-  - `kobert-0-train.pkl ~ kobert-4-train.pkl`: KoBert의 해당 Fold에서 사용할 train 파일
-  - `kobert-0-valid.pkl ~ kobert-4-valid.pkl`: KoBert의 해당 Fold에서 사용할 validation 파일
-- `model > model.py`: KoBert, KoElectra, SentAvg 모델 구현 파일(pytorch)
+**코드 구조**
+- `config`: 학습과 추론시에 설정할 환경들을 저장하는 json / yml config file이 존재하는 폴더
+- `data`: 5 Fold에 사용되는 데이터를 저장하는 폴더 for KoBERT baseline
+- `model > model.py`: 모델 구현 파일(pytorch)
 - `modules`
+    - `criterion.py`: loss function을 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
     - `dataset.py`: 학습에 사용될 pytorch dataset 정의 파일
     - `earlystoppers.py`: 학습시에 Overfitting을 방지하기 위해 Hitrate Score 또는 loss를 기준으로 EarlyStopping을 할 수 있는 객체 정의
     - `metrics.py`: Hitrate Score를 계산하는 함수 정의
-    - `recorders.py`: 모델 저장 작업 및 logging 작업을 하는 PerformanceRecorder 객체 정의
-    - `trainer.py`: 모델 training, validation, test 작업을 하는 Trainer 객체 정의
-    - `utils.py`: Config File Parsing, Seed 통일 등 학습과 추론에 필요한 다양한 util 함수 정의
-- `data_split.py`: 5 Fold로 훈련하는데 사용할 데이터를 나누어 저장하는 파일
-- `kfold_train.py`: 훈련 데이터를 5 Fold로 나누어서 KoBert를 학습하는 파일
-- `predict.py`: 학습된 모델에 대해서 prediction을 하는 파일 (model_name argument 필요)
-- `train.py`: KoElectra와 SentAvg를 학습하는 파일 (model_name argument 필요)
-
-<br>
-
-**`IKHYO` 폴더** : OneSentenceBert(custom) 모델 학습 및 추론
-- `config`: 학습과 추론시에 설정할 환경들을 저장하는 json config file이 존재하는 폴더
-  - `train > base_config.json`: 학습시에 사용할 하이퍼 파라미터 및 필요한 환경 전달
-  - `inference > base_config.json`: 추론시에 사용할 필요한 환경 전달
-- `model > model.py`: OneSentenceBert(custom) 모델 구현 파일(pytorch)
-- `modules`
-    - `criterion.py`: loss function을 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
-    - `dataset.py`: OneSentenceBert(custom) 모델에 사용될 pytorch dataset 정의 파일
-    - `earlystoppers.py`: 학습시에 Overfitting을 방지하기 위해 Hitrate Score 또는 loss를 기준으로 EarlyStopping을 할 수 있는 객체 정의
-    - `metrics.py`: Hitrate Score를 계산하는 함수 정의
     - `optimizer.py`: optimizer를 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
     - `recorders.py`: 모델 저장 작업 및 logging 작업을 하는 PerformanceRecorder 객체 정의
     - `scheduler.py`: scheduler를 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
     - `trainer.py`: 모델 training, validation, test 작업을 하는 Trainer 객체 정의
-    - `utils.py`: Config File Parsing, Seed 통일 등 학습과 추론에 필요한 다양한 util 함수 정의
-- `results`: train시에 logging 기록들을 저장하는 공간
-- `predict.py`: 5 Fold로 학습된 각각의 모델에 대해서 prediction을 하는 파일
-- `train.py`: 훈련 데이터를 5 Fold로 나누어서 OneSentenceBert(custom) model을 학습하는 파일
-
-<br>
-
-**`MINYONG` 폴더** : BertSumExt 모델 학습 및 추론
-- `config`: 학습과 추론시에 설정할 환경들을 저장하는 json config file이 존재하는 폴더
-  - `train > base_config.json`: 학습시에 사용할 하이퍼 파라미터 및 필요한 환경 전달
-  - `inference > base_config.json`: 추론시에 사용할 필요한 환경 전달
-- `model > model.py`: BertSumExt 모델 구현 파일(pytorch)
-- `modules`
-    - `criterion.py`: loss function을 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
-    - `dataset.py`: BertSumExt 모델에 사용될 pytorch dataset 정의 파일
-    - `earlystoppers.py`: 학습시에 Overfitting을 방지하기 위해 Hitrate Score 또는 loss를 기준으로 EarlyStopping을 할 수 있는 객체 정의
-    - `metrics.py`: Hitrate Score를 계산하는 함수 정의
-    - `optimizer.py`: optimizer를 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
-    - `recorders.py`: 모델 저장 작업 및 logging 작업을 하는 PerformanceRecorder 객체 정의
-    - `scheduler.py`: scheduler를 정의하는 file로 config file을 통해 지정한 대상을 학습시에 사용
     - `utils.py`: Config File Parsing, Seed 통일 등 학습과 추론에 필요한 다양한 util 함수 정의
 - `results`: train시에 logging 기록들을 저장하는 공간(loss graph, score graph, log in CSV, 학습시 사용한 config file, 학습시 logger를 통해 기록된 모든 log)
-- `predict.py`: 5 Fold로 학습된 각각의 모델에 대해서 prediction을 하는 파일
-- `train.py`: 훈련 데이터를 5 Fold로 나누어서 BertSumExt를 학습하는 파일
+- `data_split.py`: 5 Fold로 훈련하는데 사용할 데이터를 나누어 저장하는 파일
+- `predict.py`: 학습된 모델에 대해서 prediction을 하는 파일
+- `train.py`: 모델 학습하는 파일
 
 <br>
 
