@@ -1,0 +1,20 @@
+DIRECTORY:
+  data:
+  result:
+
+DATALOADER:
+  num_workers:
+  shuffle: False
+  pin_memory:
+  drop_last: False
+
+SEED:
+  random_seed:
+
+PREDICT:
+  model: 'kykim/bert-kor-base'
+  output: 'output.json'
+  trained_model_path: 'results/train/kykim_clsattn/best.pt'
+  train_serial:
+  batch_size:
+
