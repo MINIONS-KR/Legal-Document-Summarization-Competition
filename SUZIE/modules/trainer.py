@@ -13,6 +13,7 @@ from torch.optim.lr_scheduler import OneCycleLR
 def get_model(args):
     model = None
     if args.model == 'base': model = Summarizer(args)
+    if args.model == 'topk': model = TopKBertSumExt(args)
 
     model.to(args.device)
 
@@ -28,13 +29,6 @@ def save_checkpoint(state, model_dir, model_filename):
     
 def run(args):
     train_loader, val_loader = get_train_loaders(args)
-    """
-    # only when using warmup scheduler
-    args.total_steps = int(len(train_loader.dataset) / args.batch_size) * (args.n_epochs)
-    # 총 10번 warmup
-    args.warmup_steps = args.total_steps // 10
-    """
-    
     model = get_model(args)
     optimizer = get_optimizer(model, args)
     scheduler = OneCycleLR(optimizer=optimizer, pct_start=0.1, div_factor=1e5, max_lr=0.0001, epochs=args.n_epochs, steps_per_epoch=len(train_loader))
@@ -91,11 +85,10 @@ def train(train_loader, model, optimizer, scheduler, args):
         mask_clss = data[4].to(args.device)
 
         target = target.float().to(args.device)
-        sent_score = model(src, segs, clss, mask, mask_clss)
+        sent_score, new_mask_clss = model(src, segs, clss, mask, mask_clss) # need new_mask_clss when using topkbertsumext model
 
-        # compute loss
         loss = get_criterion(sent_score, target, args)
-        loss = (loss * mask_clss.float()).sum()
+        loss = (loss * new_mask_clss.float()).sum()
         train_total_loss += loss
         loss = loss / args.accum_steps
         loss.backward()
@@ -121,12 +114,6 @@ def train(train_loader, model, optimizer, scheduler, args):
     
     
 def validate(val_loader, model, args):
-    """ 한 epoch에서 수행되는 검증 절차
-
-    Args:
-        dataloader (`dataloader`)
-        epoch_index (int)
-    """
     model.eval()
     val_total_loss = 0
     pred_lst = []
@@ -141,9 +128,9 @@ def validate(val_loader, model, args):
             mask_clss = data[4].to(args.device)
             target = target.float().to(args.device)
 
-            sent_score = model(src, segs, clss, mask, mask_clss)
+            sent_score, new_mask_clss = model(src, segs, clss, mask, mask_clss)
             loss = get_criterion(sent_score, target, args)
-            loss = (loss * mask_clss.float()).sum()
+            loss = (loss * new_mask_clss.float()).sum()
             val_total_loss += loss
 
             pred_lst.extend(torch.topk(sent_score, 3, axis=1).indices.tolist())
