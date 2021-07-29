@@ -29,7 +29,7 @@ class Summarizer(nn.Module):
         sents_vec = sents_vec * mask_clss[:, :, None].float()
         h = self.fc(sents_vec).squeeze(-1)
         sent_scores = self.sigmoid(h) * mask_clss.float()
-        return sent_scores
+        return sent_scores, mask_clss
     
     
 class TopKBertSumExt(nn.Module):
