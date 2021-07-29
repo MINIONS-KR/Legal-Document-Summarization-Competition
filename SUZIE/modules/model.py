@@ -6,10 +6,7 @@ from transformers import AutoConfig, AutoModel
 
 
 class Summarizer(nn.Module):
-
     def __init__(self, args):
-        """
-        """
         super(Summarizer, self).__init__()
         self.args = args
         self.device = args.device
@@ -22,8 +19,6 @@ class Summarizer(nn.Module):
 
 
     def forward(self, x, segs, clss, mask, mask_clss):
-        """
-        """
         top_vec = self.encoder(input_ids = x.long(), attention_mask = mask.float(), token_type_ids = segs.long()).last_hidden_state
         sents_vec = top_vec[torch.arange(top_vec.size(0)).unsqueeze(1), clss.long()]
         sents_vec = sents_vec * mask_clss[:, :, None].float()
@@ -34,18 +29,18 @@ class Summarizer(nn.Module):
     
 class TopKBertSumExt(nn.Module):
     def __init__(self, args):
-            super(TopKBertSumExt, self).__init__()
-            self.args = args
-            self.device = args.device
-            self.hidden_dim = self.args.hidden_dim
-            self.n_layers = self.args.n_layers
-            self.n_heads = self.args.n_heads
-            self.bert = transformers.AutoModel.from_pretrained(args.model_name)
-            self.encoder = nn.TransformerEncoder(encoder_layer=nn.TransformerEncoderLayer(d_model=self.hidden_dim, nhead=self.n_heads, batch_first=True),
-                                                num_layers=self.n_layers)
-            self.fc = nn.Linear(self.hidden_dim, 1)
-            self.fc2 = nn.Linear(self.hidden_dim, 1)
-            self.sigmoid = nn.Sigmoid()
+        super(TopKBertSumExt, self).__init__()
+        self.args = args
+        self.device = args.device
+        self.hidden_dim = self.args.hidden_dim
+        self.n_layers = self.args.n_layers
+        self.n_heads = self.args.n_heads
+        self.bert = transformers.AutoModel.from_pretrained(args.model_name)
+        self.encoder = nn.TransformerEncoder(encoder_layer=nn.TransformerEncoderLayer(d_model=self.hidden_dim, nhead=self.n_heads, batch_first=True),
+                                            num_layers=self.n_layers)
+        self.fc = nn.Linear(self.hidden_dim, 1)
+        self.fc2 = nn.Linear(self.hidden_dim, 1)
+        self.sigmoid = nn.Sigmoid()
 
     def forward(self, x, segs, clss, mask, mask_clss):
         top_vec = self.bert(input_ids = x.long(), attention_mask = mask.float(), token_type_ids = segs.long()).last_hidden_state
